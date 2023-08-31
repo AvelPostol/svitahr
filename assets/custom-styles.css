@@ -733,7 +733,7 @@ display: flex;
 }
 
 
-.v-expansion-panel-content.vacansy-item{
+.v-item--active .vacansy-col{
 background: linear-gradient(180deg, #FBFCFF 0%, #FFFDFA 100%);
 /*background-image: url(./assets/images/Vector.png);*/
 }
@@ -835,7 +835,7 @@ line-height: 140%;
 }
 
 
-.v-application--is-ltr .v-text-field .v-label{
+.section-comment-line .v-application--is-ltr .v-text-field .v-label{
   top: 5px!important;
   left: 15px!important;
 }
@@ -1253,3 +1253,119 @@ right: 0px;
   #id3 .v-carousel .v-window-item{
     max-width: 35vw;
   }
+
+
+  .form-well .v-text-field__slot {
+    padding: 10px 17px;
+    border-radius: 15px;
+    background: rgba(242,243,244,0.21961);
+    /*margin: 0px 0px 20px 0px;*/
+    width: 100%;
+  }
+  .form-well .v-text-field .v-label{
+    top: 15px!important;
+    font-size: 14px;
+    font-weight: 500;
+    left: 15px!important;
+    color: #e6e3ff7a !important
+  }
+  .form-well .v-text-field input{
+    font-size: 14px;
+  }
+
+  .form-well .v-text-field.v-input--is-focused > .v-input__control > .v-input__slot:after{
+    display: none;
+  }
+  .form-well .v-input__slot{
+    margin-bottom: 0px;
+  }
+  .form-well .v-text-field{
+    padding-top: 0px;
+  }
+  .form-well .novaid .v-input__slot{
+    border: 1px solid #c05151;
+    border-radius: 15px;
+  }
+  .form-well .novaid.v-text-field .v-label {
+    color: #c05151!important;
+  }
+
+
+  #__layout .v-card__title{
+    display: flex;
+    justify-content: center;
+  }
+  #__layout .v-card__text{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+  #__layout .v-card__actions {
+    display: flex;
+    justify-content: center;
+  }
+  .fank .section-btn {
+  }
+  .section-btn-v1 {
+  }
+  .fank .v-btn {
+  }
+  .v-btn--is-elevated {
+  }
+  .v-btn--has-bg {
+  }
+  .theme--light {
+  }
+  .v-size--default {
+  }
+  .v-btn__content {
+  }
+  .v-card__actions > .v-btn.v-btn{
+    color: #fff;
+  }
+  #__layout .v-dialog__content.v-dialog__content--active {
+    z-index: 1000002!important;
+}
+.theme--light.v-btn.v-btn--has-bg:hover{
+  background: linear-gradient(88.32deg, #344597 0%, #496DA9 100%);
+}
+ .v-application--is-ltr .formotz .v-text-field .v-label{
+  left: 15px!important;
+  top: 5px!important;
+}
+
+#footerform .v-text-field__slot{
+  border-bottom: 1px solid #909090;
+}
+.v-text-field > .v-input__control > .v-input__slot:after{
+
+}
+.v-application #footerform .primary--text{
+  color: #909090 !important;
+  caret-color: #909090 !important;
+}
+.v-text-field.v-input--is-focused > .v-input__control > .v-input__slot:after{
+  transform: scaleX(0)!important;
+}
+#footerform .theme--light.v-label{
+  color: #909090 !important;
+  caret-color: #909090 !important;
+}
+
+
+#footerform .novaid .v-text-field__slot{
+  border-bottom: 1px solid #c05151;
+}
+#footerform .novaid.v-text-field .v-label {
+  color: #c05151!important;
+}
+#footerform .check-text{
+font-size: 14px;
+display: flex;
+white-space: nowrap;
+}
+#footerform .exit-btn{
+font-size: 14px;
+color: #fff;
+}
+

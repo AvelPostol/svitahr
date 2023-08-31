@@ -148,55 +148,17 @@
         dialogVisible: false,
         requiredConsentRule: v => !!v || 'Необходимо дать согласие на обработку персональных данных',
         reviews: [], // Инициализируем массив для хранения комментариев
-       // sessionData: this.getSessionData(), // Получаем данные сессии из локального хранилища
         enlargedImageVisible: false,
-         enlargedImageSrc: '',
+        enlargedImageSrc: '',
       };
     },
-    created() {
-      // Вызываем функцию для получения комментариев при создании компонента
-      this.getComments();
-    },
-    methods: {
-      getFileUrl(fileId) {
-      return `/api/uploads/${fileId}`; // Замените на реальный путь к файлу на сервере
-    },
-      async getComments() {
-        try {
-          const response = await axios.get('/api/get.php'); // Замените на реальный путь к PHP-файлу
-          this.reviews = response.data; // Обновляем массив reviews с полученными данными
-          console.log(response.data);
-        } catch (error) {
-          console.error('Error fetching comments:', error);
-        }
-      },
-      deleteReview(index) {
-      // Удаляем комментарий по индексу
-      this.reviews.splice(index, 1);
-      },
+      methods: {
       handleFileChange(event) {
         this.file = event.target.files[0];
       },
       closeDialog() {
         this.dialogVisible = false;
       },
-      getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-      },
-  
-      setCookie(name, value, days) {
-        const date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        const expires = `expires=${date.toUTCString()}`;
-        document.cookie = `${name}=${value};${expires};path=/`;
-      },
-      openEnlargedImage(imageFileName) {
-      this.scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-      this.enlargedImageSrc = this.getFileUrl(imageFileName);
-      this.enlargedImageVisible = true;
-    },
     closeEnlargedImage() {
       this.enlargedImageVisible = false;
       this.enlargedImageSrc = '';
@@ -209,55 +171,56 @@
     scrollToPosition() {
       window.scrollTo(0, this.scrollPosition);
     },
-  
-      async submitReview() {
+    async submitReview() {
         
-        if (!this.$refs.form.validate() || !this.consent) {
-          console.log('Submit aborted');
-          return;
-        }
+    if (!this.$refs.form.validate() || !this.consent) {
+      console.log('Submit aborted');
+      return;
+    }
   
-        if (!this.nameOrCompany || !this.comment) {
-          console.log('Required fields are missing');
-          return;
+    if (!this.nameOrCompany || !this.comment) {
+      console.log('Required fields are missing');
+      return;
+    }
+    const formData = new FormData();
+    formData.append('reviewType', this.reviewType);
+    formData.append('nameOrCompany', this.nameOrCompany);
+    formData.append('comment', this.comment);
+
+    if (this.file) {
+      formData.append('file', this.file);
+    }
+
+    try {
+      // Отправляем данные на сервер
+      const response = await axios.post('/api/push.php', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
         }
-        const formData = new FormData();
-        formData.append('reviewType', this.reviewType);
-        formData.append('nameOrCompany', this.nameOrCompany);
-        formData.append('comment', this.comment);
-        if (this.file) {
-          formData.append('file', this.file);
-        }
+      });
   
-        try {
-          // Отправляем данные на сервер
-          const response = await axios.post('/api/push.php', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-          });
+      // Обработка успешного ответа
+      const newReview = response.data;
+      this.reviews.push(newReview);
+      this.dialogVisible = true;
+      this.resetFormFields();
   
-          // Обработка успешного ответа
-          const newReview = response.data;
-          this.reviews.push(newReview);
-          this.dialogVisible = true;
-          this.resetFormFields();
-  
-        } catch (error) {
-          // Обработка ошибок
-          console.error('Error submitting review:', error);
-        }
-      },
-      canEditOrDelete(review) {
+    } catch (error) {
+      // Обработка ошибок
+      console.error('Error submitting review:', error);
+      }
+    },
+    canEditOrDelete(review) {
         // Проверяем, имеет ли текущий пользователь право редактировать/удалять этот отзыв
         return review.userId === this.sessionData.userId;
-      },
-      editReview(index) {
+    },
+    editReview(index) {
         console.log(index);
         // Редактирование отзыва
       },
-    },
-  };
+    }
+    };
+  
   
   
   </script>

@@ -48,18 +48,38 @@
             
           </div>
           <form class="fu-c-r" id="footerform">
-            <input type="text" class="maininput toname cl-name-er-btn-i " name="name" placeholder="ИМЯ" date-nameform="base-f" >
-            <input type="tel" class="maininput totel cl-tel-er-btn-i" name="tel" placeholder="ТЕЛЕФОН" date-nameform="base-f" v-mask="['+7 (9##) ###-##-##']">
+
+                        <v-text-field
+                          v-model="name"
+                          :label="'Ваше имя'"
+                          ref="nameInput"
+                          required
+                          :class="{'toname': true, 'novaid': !namevalid}"
+                        ></v-text-field>
+
+                        <v-text-field
+                          v-model="tel"
+                          :label="'Телефон'"
+                          ref="telInput"
+                          required
+                          :class="{'totel': true, 'novaid': !telvalid}"
+                          v-mask="['+7 (9##) ###-##-##']"
+                        ></v-text-field>
+                       
+          
+          
 
             <div class="form-b-b-b-b" date-nameform="base-f">
-              <div class="polzi hidden">требуется согласие с политикой конфиденциальности</div>
-              <div class="polz-bl">
-                 <input type="text" class="polzinput" date-nameform="base-f">
-                 <img src="../images/img_v2/yep.svg" alt="" class="polz1">
-                 <img src="../images/img_v2/nope.svg" alt="" class="polz2 hidden"> 
-                 <div class="polz"> <a class="exit-btn">Я согласен на обработку </a> <span>персональных данных</span></div>
-              </div>
-              <div class="section-btn section-btn-v1 submit form-main-b1 tosendi" date-nameform="base-f">Отправить</div>
+             <div class="ckeck-bl">
+              <v-checkbox
+              v-model="consent"
+              :rules="[requiredConsentRule]"
+              class="my-checkbox"
+            >
+            </v-checkbox>
+              <div class="check-text">Я согласен на обработку <span class="exit-btn" >персональных данных</span></div>
+            </div>
+              <div class="section-btn section-btn-v1 submit form-main-b1 tosendi" @click="submitReview">Отправить</div>
               
             </div>
           </form>
@@ -95,12 +115,21 @@
     </div>
   </div>
 
+<v-dialog v-model="dialogVisible" max-width="400" class="my-dialog fank">
+  <v-card>
+    <v-card-title>Спасибо за заяку!</v-card-title>
+    <v-card-text> Ваш заявка была успешно отправлена. <br> Благодарим вас! </v-card-text>
+    <v-card-actions><v-btn class="section-btn section-btn-v1" @click.stop="closeDialog">Закрыть</v-btn></v-card-actions>
+  </v-card>
+</v-dialog>
+
 </footer>
 </template>
 
   
 
 <script>
+import axios from 'axios';
 import {mask} from 'vue-the-mask';
 
 export default {
@@ -108,37 +137,74 @@ export default {
   directives: {mask},
   data() {
     return {
-
+      tel: '',
+      name: '',
+      telvalid: true,
+      dialogVisible: false,
+      namevalid: true,
+      isActive: true,
+      requiredRule: v => !!v || 'Это поле обязательно к заполнению',
     };
   },
-   methods: {
-  async submitForm() {
-    const form = document.getElementById('footerform'); // Замените на ID вашей формы
-    if (form.checkValidity()) {
-      // Валидация успешна
-      try {
-        // Отправка данных на сервер
-        const response = await fetch('/call.php', {
-          method: 'POST',
-          body: new FormData(form)
+   directives: {mask},
+  methods: {
+  closeDialog() {
+    this.dialogVisible = false;
+  },
+   async submitReview() {
+    console.log('asdasd');
+    let validmarker = true;
+
+    if (!this.consent) {
+      validmarker = false;
+    }
+
+    if (!this.tel || this.tel.length < 18 ) {
+      this.telvalid = false;
+      validmarker = false;
+    }
+    else{
+       this.telvalid = true;
+    }
+
+
+    if (!this.name) {
+      this.namevalid = false;
+      validmarker = false;
+    }
+    else{
+        this.namevalid = true;
+    }
+
+    if(!validmarker){
+      return;
+    }
+    
+
+    const formData = new FormData();
+    formData.append('name', this.name);
+    formData.append('tel', this.tel);
+          this.dialogVisible = true;
+    try {
+      const response = await axios.post('/api/simpleform.php', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+          }
         });
 
-        // Обработка ответа от сервера, если нужно
-        // Например, показ сообщения об успешной отправке
-        if (response.ok) {
-          alert('Форма успешно отправлена');
-          // Скрыть диалоговое окно
-          this.closeDialog();
-        } else {
-          alert('Произошла ошибка при отправке формы');
-        }
-      } catch (error) {
-        console.error('Ошибка при отправке формы:', error);
+          const newReview = response.data;
+          this.reviews.push(newReview);
+          this.dialogVisible = true;
+          this.resetFormFields();
+  
+        } catch (error) {
+          console.error('Error submitting review:', error);
       }
-    } else {
-      // Если форма не валидна, вы можете показать сообщение или выполнить другие действия
+    
     }
-  },
-  },
+
+    }
 };
 </script>
+
+
