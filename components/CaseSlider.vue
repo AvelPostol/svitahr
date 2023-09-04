@@ -12,6 +12,7 @@
                 v-model="activeSlide"
                 hide-delimiters
                 hide-delimiter-background
+                ref="carousel"
             >
           
               <v-carousel-item v-for="(item, index) in items" :key="index">
@@ -160,7 +161,7 @@
             <div class="n2-st4">
               <div class="n2-l">
                 <div class="n2-btn n2-prev" @click="goToNextSlide">
-                 Следующий кейс
+                 {{ prevButtonText }}
                 </div>
               </div>
               <div class="n2-r">
@@ -174,7 +175,6 @@
     </section>
   </template>
 
-  
   <script>
   export default {
     name: 'CaseSlider',
@@ -184,12 +184,26 @@
         },
         goToNextSlide() {
         this.activeSlide = Math.min(this.activeSlide + 1, this.items.length - 1);
+        const carousel = this.$refs.carousel;
+        if (carousel) {
+          carousel.prev();
+        }
         },
+    },
+    mounted() {
+    const carousel = this.$refs.carousel; // Получаем доступ к компоненту v-carousel
+      if (carousel) {
+        carousel.$on('change', (value) => {
+          this.isLastSlide = value === (carousel.items.length - 1);
+          this.prevButtonText = this.isLastSlide ? 'Предыдущий кейс' : 'Следующий кейс';
+        });
+      }
     },
     data() {
       return {
-      
         activeSlide: 0, // Начальный слайд
+        prevButtonText: 'Предыдущий кейс', // Изначальная надпись на кнопке
+        isLastSlide: false, // Флаг, чтобы определить, является ли текущий слайд последним
         items: [
           {
             title: 'Руководитель отдела продаж юридической фирмы',

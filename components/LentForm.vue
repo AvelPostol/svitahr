@@ -32,7 +32,7 @@
                     </form>
                   </section>
             </div>
-            <div class="n5-r-i"><div class="boom exto1"><div class="section-btn section-btn-v1 submit form-main-b1 tosendi"  date-nameform="base-up">Оставить заявку</div></div></div>
+            <div class="n5-r-i"><div class="boom exto1"><div class="section-btn section-btn-v1 submit form-main-b1 tosendi ex"  date-nameform="base-up">Оставить заявку</div></div></div>
             
         </div>
     </div>

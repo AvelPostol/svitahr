@@ -1,6 +1,47 @@
 <template>
     <section class="section-comment-line section">
       <div class="container">
+
+       <v-form v-if="isWideScreen == false" ref="form" @submit.prevent="submitReview" class="my-form formotz">
+          <v-radio-group v-model="reviewType" row>
+            <v-radio label="Клиент" value="client"></v-radio>
+            <v-radio label="Кандидат" value="candidate"></v-radio>
+          </v-radio-group>
+          <v-text-field
+            v-model="nameOrCompany"
+            :label="reviewType === 'client' ? 'Компания клиента' : 'ФИО кандидата'"
+            required
+            :rules="[requiredRule]"
+            class="my-input"
+          ></v-text-field>
+          <v-textarea
+            v-model="comment"
+            label="Текст отзыва"
+            required
+            :rules="[requiredRule]"
+            class="my-input"
+          ></v-textarea>
+          <v-file-input
+              v-model="file"
+              :label="file ? file.name : 'Выберите файл'"
+              accept=".pdf, .doc, .docx, .jpg, .jpeg, .png"
+              @change="handleFileChange"
+              class="my-input input-dnld gofile"
+            >
+            </v-file-input>
+            <div class="ckeck-bl">
+              <v-checkbox
+              v-model="consent"
+              :rules="[requiredConsentRule]"
+              class="my-checkbox"
+            >
+            </v-checkbox>
+              <div class="check-text">Я согласен на обработку <span class="exit-btn openpolz" >Персональных данных</span></div>
+            </div>
+          
+           
+          <v-btn  type="submit" class="button-send-otz section-btn section-btn-v1 btn_otz" @click.prevent="submitReview">Оставить комментарий</v-btn>
+        </v-form>
   
         <v-dialog v-model="enlargedImageVisible" max-width="800" @input="handleDialogClose">
         <v-img :src="enlargedImageSrc" class="enlarged-image" contain>
@@ -21,7 +62,8 @@
           <img src="../images/img_v2/n2-next.svg" alt="" class="n2-next">
         </template>
 
-      <v-slide-item>
+        
+      <v-slide-item v-if="isWideScreen">
           <v-form ref="form" @submit.prevent="submitReview" class="my-form formotz">
           <v-radio-group v-model="reviewType" row>
             <v-radio label="Клиент" value="client"></v-radio>
@@ -56,7 +98,7 @@
               class="my-checkbox"
             >
             </v-checkbox>
-              <div class="check-text">Я согласен на обработку <span class="exit-btn" >Персональных данных</span></div>
+              <div class="check-text">Я согласен на обработку <span class="exit-btn openpolz" >Персональных данных</span></div>
             </div>
           
            
@@ -110,14 +152,12 @@
 
       </div>
     </section>
-    
-    
-  
   </template>
   
   <script>
   import axios from 'axios';
-  
+
+
   export default {
     theme: {
     defaultTheme: 'light'
@@ -150,27 +190,34 @@
         reviews: [], // Инициализируем массив для хранения комментариев
         enlargedImageVisible: false,
         enlargedImageSrc: '',
+        isWideScreen: true,
       };
     },
-      methods: {
+    mounted() {
+    window.addEventListener('resize', this.updateScreenSize);
+  },
+  
+    methods: {
+      updateScreenSize() {
+      this.isWideScreen = window.innerWidth > 767;
+      },
       handleFileChange(event) {
         this.file = event.target.files[0];
       },
-      closeDialog() {
-        this.dialogVisible = false;
+      closeEnlargedImage() {
+        this.enlargedImageVisible = false;
+        this.enlargedImageSrc = '';
       },
-    closeEnlargedImage() {
-      this.enlargedImageVisible = false;
-      this.enlargedImageSrc = '';
-    },
-    handleDialogClose(val) {
-      if (!val) {
-        this.scrollToPosition();
-      }
-    },
-    scrollToPosition() {
-      window.scrollTo(0, this.scrollPosition);
-    },
+      handleDialogClose(val) {
+        if (!val) {
+          this.scrollToPosition();
+        }
+      },
+      scrollToPosition() {
+        window.scrollTo(0, this.scrollPosition);
+      },
+
+
     async submitReview() {
         
     if (!this.$refs.form.validate() || !this.consent) {

@@ -1,6 +1,5 @@
-export async function support(app, event) {
-
-  const openDialogButtons = document.querySelectorAll('.exto1 .ex');
+export async function support(app, event, selector, mutationName, flag) {
+  const openDialogButtons = document.querySelectorAll(selector);
   let clickedOnOpenDialogButton = false;
 
   openDialogButtons.forEach(button => {
@@ -8,22 +7,33 @@ export async function support(app, event) {
       clickedOnOpenDialogButton = true;
     }
   });
-
+  
   if (clickedOnOpenDialogButton) {
-    await app.$store.dispatch('TOGGLE_DIALOG', true);
+    await app.$store.dispatch(mutationName, flag);
   }
 
   return clickedOnOpenDialogButton;
 }
 
-export async function handleAppClick(app, event) {
-  if (app.popup) {
-    const dialogElement = app.$refs.dialogRef.$el;
-    if (app.$store.state.dialogVisible && (!dialogElement.contains(event.target))) {
-      await app.$store.dispatch('TOGGLE_DIALOG', false);
+export async function handleAppClick(app, event, checkPopupState, dialogRef, mutationName, flag) {
+  if (checkPopupState) {
+    const dialogElement = dialogRef.$el;
+    if (app.$store.state[checkPopupState] && (!dialogElement.contains(event.target))) {
+      await app.$store.dispatch(mutationName, flag);
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 export async function LentClick() {

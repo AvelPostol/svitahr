@@ -72,12 +72,11 @@
             <div class="form-b-b-b-b" date-nameform="base-f">
              <div class="ckeck-bl">
               <v-checkbox
-              v-model="consent"
-              :rules="[requiredConsentRule]"
+
               class="my-checkbox"
             >
             </v-checkbox>
-              <div class="check-text">Я согласен на обработку <span class="exit-btn" >персональных данных</span></div>
+              <div class="check-text">Я согласен на обработку <span class="exit-btn openpolz" >персональных данных</span></div>
             </div>
               <div class="section-btn section-btn-v1 submit form-main-b1 tosendi" @click="submitReview">Отправить</div>
               
@@ -90,7 +89,7 @@
           <div class="fu-b-l">
             Все права защищены
           </div>
-          <div class="fu-b-r conf">
+          <div class="fu-b-r conf openpolz">
             Политика конфиденциальности
           </div>
         </div>
@@ -110,7 +109,7 @@
     <div class="fu-b-l">
       Все права защищены
     </div>
-    <div class="fu-b-r conf">
+    <div class="fu-b-r conf openpolz">
       Политика конфиденциальности
     </div>
   </div>
@@ -155,9 +154,9 @@ export default {
     console.log('asdasd');
     let validmarker = true;
 
-    if (!this.consent) {
+   /* if (!this.consent) {
       validmarker = false;
-    }
+    }*/
 
     if (!this.tel || this.tel.length < 18 ) {
       this.telvalid = false;

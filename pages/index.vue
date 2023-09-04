@@ -2,7 +2,6 @@
    <v-app class="extra-app-class">
     <v-main>
        <MainBlock />
-      
        <ViaContent/>
        <MobailSlider/>
        <LentBtn/>
@@ -18,6 +17,7 @@
        <EndFooter/>
     </v-main>
     <FormSection />
+    <PolitPop/>
   </v-app>
 </template>
 
@@ -44,6 +44,9 @@ import VacansyTo from '~/components/VacansyTo.vue';
 import OtzMain from '~/components/OtzMain.vue';
 
 
+import PolitPop from '~/components/PolitPop.vue';
+
+
 export default {
 
   components: {
@@ -61,7 +64,8 @@ export default {
     NashaComanda,
     NashiPartneru,
     EndFooter,
-    OtzMain
+    OtzMain,
+    PolitPop
 
   },
 

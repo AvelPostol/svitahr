@@ -31,7 +31,7 @@
                     <div type="text" class="polzinput" date-nameform="base-up"></div>
                     <img src="../images/img_v2/icim7.svg" alt="" class="polz1">
                     <img src="../images/img_v2/icim77.svg" alt="" class="polz2 hidden">
-                    <div class="polz">С <span class="exit-btn">политикой конфиденциальности</span> ознакомлен(а)</div>
+                    <div class="polz">С <span class="exit-btn openpolz">политикой конфиденциальности</span> ознакомлен(а)</div>
                   </div>
                 </div>
               </div>
@@ -53,7 +53,6 @@ export default {
   directives: {mask},
   data() {
     return {
-     
       phoneNumber: '',
       name: '',
       textValidationRules: [
@@ -67,9 +66,9 @@ export default {
   mounted() {
     LentClick();
     const handleClick = async (event) => {
-      let clickedOnOpenDialogButton = await support(this, event);
+      let clickedOnOpenDialogButton = await support(this, event, '.exto1 .ex', 'TOGGLE_DIALOG', true);
       if (clickedOnOpenDialogButton === false) {
-        await handleAppClick(this, event);
+        await handleAppClick(this, event, 'popup', this.$refs.dialogRef, 'TOGGLE_DIALOG', false);
       }
     };
     document.addEventListener('click', handleClick);
