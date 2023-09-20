@@ -2,7 +2,8 @@
 
 export const state = () => ({
   dialogVisible: false,
-  Polzsog: false
+  Polzsog: false,
+  FankPop: false,
 });
 
 export const getters = {
@@ -11,6 +12,9 @@ export const getters = {
   },
   PolzsoglPopup: state => {
     return state.Polzsog;
+  },
+  FankPopPopup: state => {
+    return state.FankPop;
   },
 };
 
@@ -21,6 +25,9 @@ export const mutations = {
   TogglePolzsogl(state, payload) {
     state.Polzsog = payload;
   },
+  ToggleFankPop(state, payload) {
+    state.FankPop = payload;
+  },
 };
 
 export const actions = {
@@ -29,5 +36,8 @@ export const actions = {
   },
   async TOGGLE_POLZSOGL({ commit }, payload) {
     commit('TogglePolzsogl', payload);
+  },
+  async TOGGLE_FANK({ commit }, payload) {
+    commit('ToggleFankPop', payload);
   },
 };

@@ -1,26 +1,30 @@
 import colors from 'vuetify/es5/util/colors'
 
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
-  target: 'static',
-  // Global page headers: https://go.nuxtjs.dev/config-head
-  head: {
-    titleTemplate: '%s - svita',
-    title: 'svita',
-    htmlAttrs: {
-      lang: 'en'
+    target: 'static',
+    router:{
+      base: '/recruiting/'
     },
+    head: {
+    title: 'Рекрутинг С-ВИТА',
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' }
+      { charset: 'UTF-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
+      { hid: 'description', name: 'description', content: 'S-Vita Consulting Group – группа компаний, предоставляющая широкий спектр консалтинговых и аутсорсинговых услуг для бизнеса. Мы предлагаем комплексный подход в формате «одного окна» с финансовой ответственностью за результат и взятые на себя обязательства. Помогаем бизнесу решить юридические вопросы, увидеть реальную картину денежных потоков, найти пути оптимизации расходов и увеличения прибыли.' },
+      { property: 'og:locale', content: 'ru_RU' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:title', content: 'КДП С-ВИТА' },
+      { property: 'og:description', content: 'S-Vita Consulting Group – группа компаний, предоставляющая широкий спектр консалтинговых и аутсорсинговых услуг для бизнеса. Мы предлагаем комплексный подход в формате «одного окна» с финансовой ответственностью за результат и взятые на себя обязательства. Помогаем бизнесу решить юридические вопросы, увидеть реальную картину денежных потоков, найти пути оптимизации расходов и увеличения прибыли.' },
+      { property: 'og:url', content: 'https://s-vita-hr.ru/' },
+      { property: 'og:site_name', content: 'КДП С-ВИТА' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+      { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/img/favicon-32x32.svg' },
+    ],
   },
-
+  
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     './assets/legasy-st.css', // Путь к вашему CSS-файлу

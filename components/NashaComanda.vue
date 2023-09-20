@@ -7,7 +7,7 @@
             <div class="section-bl11-b-title">
               Наша команда
             </div>
-            <div class="section-bl11-title-line"></div>
+            <!--<div class="section-bl11-title-line"></div>-->
           </div>
         </v-col>
         <v-col cols="12">

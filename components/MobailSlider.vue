@@ -1,5 +1,5 @@
 <template>
-    <v-container class="section s3 nm">
+    <v-container class="section s3 nm universalslider">
         <v-col cols="6">
           <div class="s3-l-t">
             Почему рекрутинг <br> с SCG эффективнее?
@@ -44,7 +44,6 @@
         items: [
           { text: "Составляем “портрет” идеального кандидата, на основании пожеланий клиента", image: require('../images/img_v2/rrepi1.png') },
           { text: "Отбираем подходящих претендентов и проводим собеседования", image: require('../images/img_v2/repi2.png') },
-
           { text: "Передаём вам список кандидатов, успешно прошедших отбор", image: require('../images/img_v2/repi1.png') },
           { text: "Готовим отчётность и предоставляем гарантии после трудоустройства", image: require('../images/img_v2/repi2.png') },
           { text: "Помогаем в адаптации нового сотрудника", image: require('../images/img_v2/repi3.png') },

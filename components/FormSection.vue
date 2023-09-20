@@ -4,47 +4,51 @@
         <section class="section form-well base-up section-bl5 form-out form-out1" date-nameform="base-up">
           <form action="/call.php" class="form-call" method="post" novalidate="novalidate" id="form7">
             <div class="sp-bl1">
-              <div class="ex exto1" @click="closeDialog"> <img src="../images/img_v2/ex.svg" alt="/" class="ex"> </div>
+              <div class="ex exto1" @click="closeDialog"> <img src="../images/img_v2/ex.svg" alt="/" class="ex popup-simple"> </div>
               <div class="form-t"> <div class="titlesp"> Получить бесплатную консультацию </div></div>
               <div class="form-b-b-b">
                 <div class="form-b-b-b-t">
+
                   <div class="btn-title"> ФИО/Компания* </div>
-                  <div class="type-btn cl-name-er-btn-i">
+                  <div class="type-btn cl-name-er-btn-i"  :class="{ 'novalid': !namevalid && (!name || name.length < 3) }">
                     <img src="../images/img_v2/icim1.svg" alt="" class="icon-vm1">
-                    <input type="text" class="maininput toname" name="name" placeholder="Имя" date-nameform="base-up">
+                    <v-text-field  v-model="name"  ref="nameInput" required ></v-text-field>
                   </div>
+
                   <div class="btn-title">   Телефон*  </div>
-                  <div class="type-btn cl-tel-er-btn-i">
-                    <img src="../images/img_v2/icim10.svg" alt="" class="icon-vm1">  
-                    <input type="tel" class="maininput totel" name="tel" placeholder="8 (904) 200-54-95" date-nameform="base-up" v-mask="['+7 (9##) ###-##-##']">
+                  <div class="type-btn cl-tel-er-btn-i"  :class="{ 'novalid': !telvalid && (!tel || tel.length < 18) }">
+                    <img src="../images/img_v2/icim10.svg" alt="" class="icon-vm1">
+                    <v-text-field  v-model="tel" ref="telInput"  required  v-mask="['+7 (9##) ###-##-##']"  ></v-text-field>
                   </div>
+
                   <div class="btn-title">  Кого ищем/специальность </div>
                   <div class="type-btn">
                     <img src="../images/img_v2/icim1.svg" alt="" class="icon-vm1">
-                    <input type="text" class="maininput tosubname" name="subname" placeholder="Бухгалтер" date-nameform="base-up">
+                    <v-text-field  v-model="speciality" ref="subInput" ></v-text-field>
                   </div>
+
                 </div>
+
                 <div class="form-b-b-b-b" date-nameform="base-up">
-                  <div class="section-btn section-btn-v1 submit form-main-b1 tosendi" date-nameform="base-up">Начать работу</div>
-                  <div class="polzi hidden">требуется согласие с политикой конфиденциальности</div>
-                  <div class="polz-bl">
-                    <div type="text" class="polzinput" date-nameform="base-up"></div>
-                    <img src="../images/img_v2/icim7.svg" alt="" class="polz1">
-                    <img src="../images/img_v2/icim77.svg" alt="" class="polz2 hidden">
-                    <div class="polz">С <span class="exit-btn openpolz">политикой конфиденциальности</span> ознакомлен(а)</div>
+                  <div class="section-btn section-btn-v1 submit form-main-b1 tosendi" date-nameform="base-up" @click="submitReviewpop">Начать работу</div>
+                  <div class="ckeck-bl" :class="{ 'novalid': !consentlid && !consent }">
+                    <v-checkbox class="my-checkbox"  v-model="consent" :rules="[requiredConsentRule]" ></v-checkbox>
+                    <div class="check-text">Я согласен на обработку <span class="exit-btn openpolz" @click="OpenPolz" >персональных данных</span></div>
                   </div>
                 </div>
-              </div>
+
+            </div>
             </div>
           </form>  
         </section>
       </v-card>
-    </v-dialog>
+</v-dialog>
 </template>
 
 
 
 <script>
+import axios from 'axios';
 import {mask} from 'vue-the-mask';
 import { support, handleAppClick, LentClick } from '../assets/js/support.js';
 import { mapGetters } from 'vuex';
@@ -53,11 +57,16 @@ export default {
   directives: {mask},
   data() {
     return {
-      phoneNumber: '',
+      tel: '',
       name: '',
-      textValidationRules: [
-        v => !!v || 'Поле обязательно для заполнения',
-      ],
+      speciality: '',
+      telvalid: true,
+      namevalid: true,
+      isActive: true,
+      consent: false,
+      consentlid: false,
+      requiredConsentRule: v => !!v || 'Необходимо дать согласие на обработку персональных данных',
+      requiredRule: v => !!v || 'Это поле обязательно к заполнению'
     };
   },
   computed: {
@@ -65,17 +74,95 @@ export default {
   },
   mounted() {
     LentClick();
-    const handleClick = async (event) => {
-      let clickedOnOpenDialogButton = await support(this, event, '.exto1 .ex', 'TOGGLE_DIALOG', true);
-      if (clickedOnOpenDialogButton === false) {
-        await handleAppClick(this, event, 'popup', this.$refs.dialogRef, 'TOGGLE_DIALOG', false);
-      }
+    const handleDocumentClick = (event) => {
+    const target = event.target;
+    if (target && target.classList.contains('popup-simple')) {
+      support(this, event, '.popup-simple', 'TOGGLE_DIALOG', true);
+    } else {
+      handleAppClick(this, event, 'dialogVisible', this.$refs.dialogRef, 'TOGGLE_DIALOG', false);
+    }
     };
-    document.addEventListener('click', handleClick);
+
+    document.addEventListener('click', handleDocumentClick);
+    this.$once('hook:beforeDestroy', () => {
+      document.removeEventListener('click', handleDocumentClick);
+    });
   },
   methods: {
+    closeDialogfank(){
+      this.$store.dispatch('TOGGLE_FANK', false);
+    },
+    OpenPolz(){
+      this.$store.dispatch('TOGGLE_POLZSOGL', true);
+    },
     closeDialog(){
       this.$store.dispatch('TOGGLE_DIALOG', false);
+    },
+    async submitReviewpop() {
+    let validmarker = true;
+
+    if (!this.tel || this.tel.length < 18 ) {
+      this.telvalid = false;
+      validmarker = false;
+    }
+    else{
+       this.telvalid = true;
+    }
+
+    if(!this.consent){
+      this.consentlid = false;
+      validmarker = false;
+    }
+
+    if (!this.name) {
+      this.namevalid = false;
+      validmarker = false;
+    }
+    else{
+        this.namevalid = true;
+    }
+
+    if(!validmarker){
+      return;
+    }
+    
+    this.$store.dispatch('TOGGLE_FANK', true);
+    this.$store.dispatch('TOGGLE_DIALOG', false);
+    const formData = new FormData();
+    formData.append('name', this.name);
+    formData.append('tel', this.tel);
+    formData.append('speciality', this.speciality);
+
+    // Получите значения UTM-меток из URL-адреса
+    const urlParams = new URLSearchParams(window.location.search);
+    const utmSource = urlParams.get('utm_source') || '';
+    const utmMedium = urlParams.get('utm_medium') || '';
+    const utmCampaign = urlParams.get('utm_campaign') || '';
+    const utmContent = urlParams.get('utm_content') || '';
+    const utmTerm = urlParams.get('utm_term') || '';
+
+    // Добавьте UTM-метки в FormData
+    formData.append('utm_source', utmSource);
+    formData.append('utm_medium', utmMedium);
+    formData.append('utm_campaign', utmCampaign);
+    formData.append('utm_content', utmContent);
+    formData.append('utm_term', utmTerm);
+
+    try {
+      const response = await axios.post('/api/simpleform.php', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+          }
+        });
+
+          const newReview = response.data;
+          this.reviews.push(newReview);
+          this.resetFormFields();
+  
+        } catch (error) {
+          console.error('Error submitting review:', error);
+      }
+    
     }
   },
   beforeUnmount() {
@@ -84,24 +171,3 @@ export default {
 };
 </script>
 
-<style>
-.v-dialog__content.v-dialog__content--active{
-  width: 100vw;
-  overflow: hidden;
-  background-image: none;
-  flex-direction: column;
-  height: 100vh;
-  z-index: 10000!important;
-  background-color: #2c3354d7;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  -webkit-backdrop-filter: blur(2px);
-  backdrop-filter: blur(2px);
-}
-.v-dialog{
-  width: fit-content;
-  overflow: visible;
-  /*  padding: 40px 0px 20px 0px;*/
-}
-</style>

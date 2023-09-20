@@ -1,47 +1,11 @@
 <template>
-    <section class="section-comment-line section">
+    <section class="section-comment-line section universalslider" id="appy">
       <div class="container">
 
-       <v-form v-if="isWideScreen == false" ref="form" @submit.prevent="submitReview" class="my-form formotz">
-          <v-radio-group v-model="reviewType" row>
-            <v-radio label="Клиент" value="client"></v-radio>
-            <v-radio label="Кандидат" value="candidate"></v-radio>
-          </v-radio-group>
-          <v-text-field
-            v-model="nameOrCompany"
-            :label="reviewType === 'client' ? 'Компания клиента' : 'ФИО кандидата'"
-            required
-            :rules="[requiredRule]"
-            class="my-input"
-          ></v-text-field>
-          <v-textarea
-            v-model="comment"
-            label="Текст отзыва"
-            required
-            :rules="[requiredRule]"
-            class="my-input"
-          ></v-textarea>
-          <v-file-input
-              v-model="file"
-              :label="file ? file.name : 'Выберите файл'"
-              accept=".pdf, .doc, .docx, .jpg, .jpeg, .png"
-              @change="handleFileChange"
-              class="my-input input-dnld gofile"
-            >
-            </v-file-input>
-            <div class="ckeck-bl">
-              <v-checkbox
-              v-model="consent"
-              :rules="[requiredConsentRule]"
-              class="my-checkbox"
-            >
-            </v-checkbox>
-              <div class="check-text">Я согласен на обработку <span class="exit-btn openpolz" >Персональных данных</span></div>
-            </div>
-          
-           
-          <v-btn  type="submit" class="button-send-otz section-btn section-btn-v1 btn_otz" @click.prevent="submitReview">Оставить комментарий</v-btn>
-        </v-form>
+        <div class="otz-title">
+          Отзывы
+        </div>
+
   
         <v-dialog v-model="enlargedImageVisible" max-width="800" @input="handleDialogClose">
         <v-img :src="enlargedImageSrc" class="enlarged-image" contain>
@@ -111,6 +75,7 @@
         v-for="(item, index) in Otz"
         :key="index"
         :active-class="'v-slide-item--active'"
+        v-if="isWideScreen"
       >
       <div class="otz-bl">
         <div class="otz-cont">
@@ -137,7 +102,83 @@
       </v-slide-item>
     </v-slide-group>
 
-  
+
+
+    <v-carousel  @change="handleSlideChange"   v-if="isWideScreen == false">
+            <v-carousel-item v-for="(item, index) in Otz" :key="index">
+              <div class="otz-bl">
+                <div class="otz-cont">
+                  <div class="otz-row">
+                    <div class="otz-top">
+                      <img src="../images/im/kav.svg" alt="" class="otz-top-left">
+                      <div class="otz-top-r">
+                        <div class="otz-text">{{item.text}}</div>
+                        <div class="otz-bottom">
+                      <img :src="item.image" alt="" class="otz-logo">
+                      <div class="otz-bottom-b">
+                        <div class="otz-man">{{item.man}}</div>
+                        <div class="otz-company">{{item.company}}</div>
+                      </div>
+                    </div>
+                      </div>
+                      
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </v-carousel-item>
+          </v-carousel>
+          <div class="n2-st4" v-if="isWideScreen == false">
+            <div class="nuberi">
+              <div class="kla">{{ activeSlideIndex + 1}}</div>
+              <div class="ski">/2</div>
+            </div>
+          </div>
+
+    
+    <v-form v-if="isWideScreen == false" ref="form" @submit.prevent="submitReview" class="my-form formotz formotz-mobile">
+          <v-radio-group v-model="reviewType" row>
+            <v-radio label="Клиент" value="client"></v-radio>
+            <v-radio label="Кандидат" value="candidate"></v-radio>
+          </v-radio-group>
+          <v-text-field
+            v-model="nameOrCompany"
+            :label="reviewType === 'client' ? 'Компания клиента' : 'ФИО кандидата'"
+            required
+            :rules="[requiredRule]"
+            class="my-input"
+          ></v-text-field>
+          <v-textarea
+            v-model="comment"
+            label="Текст отзыва"
+            required
+            :rules="[requiredRule]"
+            class="my-input"
+          ></v-textarea>
+          <v-file-input
+              v-model="file"
+              :label="file ? file.name : 'Выберите файл'"
+              accept=".pdf, .doc, .docx, .jpg, .jpeg, .png"
+              @change="handleFileChange"
+              class="my-input input-dnld gofile"
+            >
+            </v-file-input>
+            <div class="ckeck-bl">
+              <v-checkbox
+              v-model="consent"
+              :rules="[requiredConsentRule]"
+              class="my-checkbox"
+            >
+            </v-checkbox>
+              <div class="check-text">Я согласен на обработку <span class="exit-btn openpolz" >Персональных данных</span></div>
+            </div>
+          
+           
+          <v-btn type="submit" class="button-send-otz section-btn section-btn-v1 btn_otz" @click.prevent="submitReview">Оставить комментарий</v-btn>
+    </v-form>
+
+      <!--
     <v-dialog v-model="dialogVisible" max-width="400" class="my-dialog fank">
       <v-card>
         <v-card-title>Спасибо за отзыв</v-card-title>
@@ -148,7 +189,7 @@
           <v-btn class="section-btn section-btn-v1" @click.stop="closeDialog">Закрыть</v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </v-dialog>-->
 
       </div>
     </section>
@@ -162,9 +203,11 @@
     theme: {
     defaultTheme: 'light'
   },
+
   activeSlide: 0,
     data() {
       return {
+        activeSlideIndex: 0,
         Otz: [
           {
             man: 'И. Г. Макарчук',
@@ -185,7 +228,7 @@
         file: null,
         consent: false,
         requiredRule: v => !!v || 'Это поле обязательно к заполнению',
-        dialogVisible: false,
+       // dialogVisible: false,
         requiredConsentRule: v => !!v || 'Необходимо дать согласие на обработку персональных данных',
         reviews: [], // Инициализируем массив для хранения комментариев
         enlargedImageVisible: false,
@@ -193,11 +236,14 @@
         isWideScreen: true,
       };
     },
-    mounted() {
-    window.addEventListener('resize', this.updateScreenSize);
-  },
-  
+      mounted() {
+        this.updateScreenSize();
+      window.addEventListener('resize', this.updateScreenSize);
+    },
     methods: {
+      handleSlideChange(newIndex) {
+      this.activeSlideIndex = newIndex; // Обновляем activeSlideIndex при изменении слайда
+    },
       updateScreenSize() {
       this.isWideScreen = window.innerWidth > 767;
       },
@@ -229,15 +275,31 @@
       console.log('Required fields are missing');
       return;
     }
+
     const formData = new FormData();
-    formData.append('reviewType', this.reviewType);
-    formData.append('nameOrCompany', this.nameOrCompany);
+    formData.append('name', this.reviewType);
+    formData.append('company', this.nameOrCompany);
     formData.append('comment', this.comment);
+
+        // Получите значения UTM-меток из URL-адреса
+        const urlParams = new URLSearchParams(window.location.search);
+    const utmSource = urlParams.get('utm_source') || '';
+    const utmMedium = urlParams.get('utm_medium') || '';
+    const utmCampaign = urlParams.get('utm_campaign') || '';
+    const utmContent = urlParams.get('utm_content') || '';
+    const utmTerm = urlParams.get('utm_term') || '';
+
+    // Добавьте UTM-метки в FormData
+    formData.append('utm_source', utmSource);
+    formData.append('utm_medium', utmMedium);
+    formData.append('utm_campaign', utmCampaign);
+    formData.append('utm_content', utmContent);
+    formData.append('utm_term', utmTerm);
 
     if (this.file) {
       formData.append('file', this.file);
     }
-
+    this.$store.dispatch('TOGGLE_FANK', true);
     try {
       // Отправляем данные на сервер
       const response = await axios.post('/api/push.php', formData, {
@@ -249,7 +311,7 @@
       // Обработка успешного ответа
       const newReview = response.data;
       this.reviews.push(newReview);
-      this.dialogVisible = true;
+     // this.dialogVisible = true;
       this.resetFormFields();
   
     } catch (error) {

@@ -1,7 +1,6 @@
 export async function support(app, event, selector, mutationName, flag) {
   const openDialogButtons = document.querySelectorAll(selector);
   let clickedOnOpenDialogButton = false;
-
   openDialogButtons.forEach(button => {
     if (button.contains(event.target)) {
       clickedOnOpenDialogButton = true;
@@ -18,6 +17,7 @@ export async function support(app, event, selector, mutationName, flag) {
 export async function handleAppClick(app, event, checkPopupState, dialogRef, mutationName, flag) {
   if (checkPopupState) {
     const dialogElement = dialogRef.$el;
+    console.log(app.$store.state[checkPopupState]);
     if (app.$store.state[checkPopupState] && (!dialogElement.contains(event.target))) {
       await app.$store.dispatch(mutationName, flag);
     }

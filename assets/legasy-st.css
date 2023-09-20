@@ -2951,7 +2951,17 @@ input {
   font-size: var(--f4);
   color: #313654;
   text-align: center;
-  font-weight: 900;
+  font-weight: 700;
+  position: relative;
+}
+.section-bl11 .section-bl11-b-title:after {
+  content: '';
+  height: 7px;
+  width: 100%;
+  background: linear-gradient(45deg, #2d3354 0%, #5f79ac 100%);
+  position: absolute;
+  bottom: -15px;
+  left: 0px;
 }
 
 .section-bl11 .section-bl11-b-slider {
@@ -4597,6 +4607,9 @@ br.lg {
   .section-c-row-b {
   margin: 0px 0px 0px 0px;
 }
+.popup-simple{
+  cursor: pointer;
+}
 
 .slimi-at2 {
   font-family: 'Bellota';
@@ -5043,7 +5056,7 @@ br.lg {
 
 .n2 .n2-title {
   font-weight: 700;
-  font-size: 25px;
+  font-size: 32px;
   line-height: 30px;
   color: #313654;
   width: -webkit-fit-content;
@@ -5054,12 +5067,12 @@ br.lg {
 
 .n2 .n2-title:after {
   content: '';
-  position: absolute;
+  height: 7px;
   width: 100%;
-  bottom: -2px;
-  left: 0px;
-  height: 5px;
   background: linear-gradient(45deg, #2d3354 0%, #5f79ac 100%);
+  position: absolute;
+  bottom: -15px;
+  left: 0px;
 }
 
 .n2 .n2-r {
@@ -5292,7 +5305,7 @@ br.lg {
 
 .n4 .n4-l-t {
   font-weight: 700;
-  font-size: 25px;
+  font-size: 32px;
   line-height: 30px;
   color: #313654;
   margin: 0px 0px 60px 0px;
@@ -5514,7 +5527,7 @@ br.lg {
 }
 
 .n7 .n7-title {
-  font-weight: 900;
+  font-weight: 700;
   /* font-weight: 700; */
   font-size: var(--f4);
   position: relative;
@@ -5526,9 +5539,6 @@ br.lg {
   height: -moz-fit-content;
   height: fit-content;
   white-space: nowrap;
-  font-weight: 700;
-  font-size: 40px;
-  line-height: 48px;
 }
 
 .n7 .n7-title:after {
@@ -5634,9 +5644,6 @@ body {
   font-weight: 800;
 }
 
-.n4 .n4-l-t {
-  font-weight: 800;
-}
 
 .n4 .n4-l-b {
   position: absolute;
@@ -8470,7 +8477,7 @@ footer .fu-r iframe {
   }
 
   .section .container .section-cont.section-cont-v1 .section-row .section-c {
-    margin: 75px 0px 0px 0px;
+    margin: 75px 0px 40px 0px;
   }
 
   .section-main:after {
@@ -9725,9 +9732,14 @@ footer .section-btn.section-btn-v1:hover{
     src: url('../fonts/MuseoSansCyrl-900.ttf');
     font-weight: 900;
   }
-  
+/*
   @font-face {
     font-family: 'app';
     src: url('../fonts/applemyungjo-regular.ttf');
     font-weight: 400;
   }
+*/
+.footer .fu-t-sub.fu-t-suby{
+  max-width: 300px;
+  padding: 20px 0px 0px 0px;
+}

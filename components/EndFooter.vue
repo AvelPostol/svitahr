@@ -13,6 +13,13 @@
             Санкт-Петербург, Петровская коса, д. 1, <br>
             корп. 1, лит. Р (БЦ «Петровский»)
           </div>
+          <div class="fu-t-sub fu-t-suby">
+            ООО "С-ВИТА"
+197110, Г.САНКТ-ПЕТЕРБУРГ, КОСА ПЕТРОВСКАЯ, Д. 1, К. 1 ЛИТЕР Р, ПОМЕЩ. 32-Н ОФИС 101
+ОГРН 1077847607001
+ИНН 7842368140
+          </div>
+          
         </div>
         <div class="fu-c">
           <div class="fu-c-l">
@@ -29,8 +36,7 @@
             <div class="fu-gruppy">
               <div class="fu-c-l-ti">
                 Соцсети
-              </div><!-- +7 921 798-50-22 -->
-              <a href="https://t.me/SVITAHR_bot" class="f-linky">Telegram</a>
+              </div>
               <a href="https://wa.me/+79217985022" class="f-linky">Whatsapp</a>
 
               <div class="uni-social">
@@ -65,19 +71,13 @@
                           :class="{'totel': true, 'novaid': !telvalid}"
                           v-mask="['+7 (9##) ###-##-##']"
                         ></v-text-field>
-                       
-          
-          
+
 
             <div class="form-b-b-b-b" date-nameform="base-f">
-             <div class="ckeck-bl">
-              <v-checkbox
-
-              class="my-checkbox"
-            >
-            </v-checkbox>
-              <div class="check-text">Я согласен на обработку <span class="exit-btn openpolz" >персональных данных</span></div>
-            </div>
+              <div class="ckeck-bl" :class="{ 'novalid': !consentlid && !consent }">
+                    <v-checkbox class="my-checkbox"  v-model="consent" ></v-checkbox>
+                    <div class="check-text">Я согласен на обработку <span class="exit-btn openpolz" @click="OpenPolz" >персональных данных</span></div>
+                  </div>
               <div class="section-btn section-btn-v1 submit form-main-b1 tosendi" @click="submitReview">Отправить</div>
               
             </div>
@@ -141,22 +141,29 @@ export default {
       telvalid: true,
       dialogVisible: false,
       namevalid: true,
+      consent: false,
+      consentlid: false,
       isActive: true,
       requiredRule: v => !!v || 'Это поле обязательно к заполнению',
     };
   },
-   directives: {mask},
+  directives: {mask},
   methods: {
+    OpenPolz(){
+      this.$store.dispatch('TOGGLE_POLZSOGL', true);
+    },
   closeDialog() {
     this.dialogVisible = false;
   },
    async submitReview() {
-    console.log('asdasd');
     let validmarker = true;
 
-   /* if (!this.consent) {
+    
+    if(!this.consent){
+      this.consentlid = false;
       validmarker = false;
-    }*/
+    }
+
 
     if (!this.tel || this.tel.length < 18 ) {
       this.telvalid = false;
@@ -180,9 +187,30 @@ export default {
     }
     
 
+
+
+
+
     const formData = new FormData();
     formData.append('name', this.name);
     formData.append('tel', this.tel);
+
+    // Получите значения UTM-меток из URL-адреса
+    const urlParams = new URLSearchParams(window.location.search);
+    const utmSource = urlParams.get('utm_source') || '';
+    const utmMedium = urlParams.get('utm_medium') || '';
+    const utmCampaign = urlParams.get('utm_campaign') || '';
+    const utmContent = urlParams.get('utm_content') || '';
+    const utmTerm = urlParams.get('utm_term') || '';
+
+    // Добавьте UTM-метки в FormData
+    formData.append('utm_source', utmSource);
+    formData.append('utm_medium', utmMedium);
+    formData.append('utm_campaign', utmCampaign);
+    formData.append('utm_content', utmContent);
+    formData.append('utm_term', utmTerm);
+
+
           this.dialogVisible = true;
     try {
       const response = await axios.post('/api/simpleform.php', formData, {

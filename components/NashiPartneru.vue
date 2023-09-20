@@ -39,7 +39,7 @@
           
           <div class="s-cl-row ">
           <div class="s-cl-col">
-            <img src="../images/im/company6.png" alt="" class="s-cl-im s-cl-im-d">
+            <img src="../images/im/company6.svg" alt="" class="s-cl-im s-cl-im-d">
           </div>
         </div>
           
@@ -87,13 +87,13 @@
           
           <div class="s-cl-row ">
           <div class="s-cl-col">
-            <img src="../images/im/company14.png" alt="" class="s-cl-im s-cl-im-d">
+            <img src="../images/im/company14.svg" alt="" class="s-cl-im s-cl-im-d">
           </div>
         </div>
           
           <div class="s-cl-row ">
           <div class="s-cl-col">
-            <img src="../images/im/company15.png" alt="" class="s-cl-im s-cl-im-d">
+            <img src="../images/im/company15.svg" alt="" class="s-cl-im s-cl-im-d">
           </div>
         </div>
                 

@@ -77,20 +77,25 @@
 export default {
   data() {
     return {
-      //pozsogl: false, // Используется для открытия и закрытия диалогового окна
     };
   },
   computed: {
     ...mapGetters(['PolzsoglPopup'])
   },
   mounted() {
-    const handleClick = async (event) => {
-      let clickedOnOpenDialogButton = await support(this, event, '.openpolz', 'TOGGLE_POLZSOGL', true);
-      if (clickedOnOpenDialogButton === false) {
-        await handleAppClick(this, event, 'PolzsoglPopup', this.$refs.PolzSogl, 'TOGGLE_POLZSOGL', false);
-      }
+  const handleDocumentClick = (event) => {
+    const target = event.target;
+    if (target && target.classList.contains('openpolz')) {
+      support(this, event, '.openpolz', 'TOGGLE_POLZSOGL', true);
+    } else {
+      handleAppClick(this, event, 'Polzsog', this.$refs.PolzSogl, 'TOGGLE_POLZSOGL', false);
+    }
     };
-    document.addEventListener('click', handleClick);
+
+    document.addEventListener('click', handleDocumentClick);
+    this.$once('hook:beforeDestroy', () => {
+      document.removeEventListener('click', handleDocumentClick);
+    });
   },
   methods: {
     closeDialog(){

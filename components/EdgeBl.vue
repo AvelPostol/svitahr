@@ -13,6 +13,7 @@
                    <img :src="item.image" alt="" class="n4-ic">
                    <div class="n4-title">{{ item.title }}</div>
                    <div class="n4-text">{{ item.content }}</div>
+
                 </div>
             </div>
           </div>
@@ -33,7 +34,7 @@
               </div>
             </div>
           </div>
-          <div class="boom exto1"><div class="section-btn section-btn-v1 ex">Бесплатная консультация</div></div>
+          <div class="boom exto1"><div class="section-btn section-btn-v1 ex popup-simple">Бесплатная консультация</div></div>
         </div>
       </div>
 
@@ -42,7 +43,32 @@
     <div class="loyalty-main-title">
       Программа лояльности
     </div>
-      <div class="loyalty-block">
+
+    <div class="mob-sl-loyalty universalslider" v-if="isWideScreen == false">
+      <v-carousel  @change="handleSlideChange"  class="loyaltyslider">
+          <v-carousel-item v-for="(item, index) in loyalty" :key="index">
+            <div class="loyalty-col">
+            <div class="loyalty-t">
+            <div class="loyalty-title">{{ item.title }}</div>
+            <div class="loyalty-text">{{ item.text }}</div>
+            <div class="loyalty-text">{{ item.subtextex }}</div>
+            </div>
+            <div class="loyalty-b">
+              <div class="loyalty-nume">{{ item.nume}}</div>
+              <div class="loyalty-sebtext">{{ item.subtext }}</div>
+            </div>
+          </div>
+          </v-carousel-item>
+        </v-carousel>
+        <div class="n2-st4">
+          <div class="nuberi">
+            <div class="kla">{{ activeSlideIndex + 1}}</div>
+            <div class="ski">/4</div>
+          </div>
+        </div>
+    </div>
+       
+      <div class="loyalty-block" v-if="isWideScreen">
         <div class="loyalty-row"
           v-for="(item, index) in loyalty"
           :key="index"
@@ -51,6 +77,7 @@
             <div class="loyalty-t">
             <div class="loyalty-title">{{ item.title }}</div>
             <div class="loyalty-text">{{ item.text }}</div>
+            <div class="loyalty-text loyalty-textex">{{ item.subtextex }}</div>
             </div>
             <div class="loyalty-b">
               <div class="loyalty-nume">{{ item.nume}}</div>
@@ -79,22 +106,26 @@ export default {
   },
   data() {
     return {
+      activeSlideIndex: 0,
       loyalty: [
         {
           title: 'Постоплата',
           text: 'Оплата по факту трудоустройства и выхода сотрудника на работу в течение 3-х рабочих дней. ',
           nume: '0 ₽',
+          subtextex: '',
           subtext: 'Постоплата',
         },
           {
           title: 'Выгодные скидки ',
           text: 'Постоянным партнерам и клиентам с заявкой от 3-х вакансий скидка 10-15% на услуги подбора и другие консалтинговые услуги S-vita consulting group.',
+          subtextex: '',
           nume: '10-15%',
           subtext: 'Скидка постоянным клиентам',
         },
           {
           title: 'Гарантийный период',
           text: 'Предоставляется замена сотрудника, не прошедшего испытательный срок, в течение всего срока гарантии (однократно бесплатно).',
+          subtextex: 'Гарантийный период на замену: от 1-го до 3-х месяцев для ТОП-позиций - до 6 месяцев.',
           nume: '0 ₽',
           subtext: 'Гарантийный период',
         },
@@ -102,6 +133,7 @@ export default {
           title: 'Бонусы',
           text: 'Разбор конфликтной ситуации в коллективе / разработка системы подарков для коллектива / другие предложения по удержанию и налаживанию атмосферы внутри коллектива.',
           nume: '∞',
+          subtextex: '',
           subtext: 'Подарки',
         },
       ],
@@ -142,14 +174,23 @@ export default {
         }, 
       ],
       activeBlock: null,
+      isWideScreen: false,
     };
   },
+  mounted() {
+    this.updateScreenSize();
+    window.addEventListener('resize', this.updateScreenSize);
+  },
   methods: {
-
+    updateScreenSize() {
+      this.isWideScreen = window.innerWidth > 767;
+      },
+    handleSlideChange(newIndex) {
+    this.activeSlideIndex = newIndex; // Обновляем activeSlideIndex при изменении слайда
+  },
   },
 };
 </script>
-
 
 
 

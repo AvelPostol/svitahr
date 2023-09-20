@@ -18,6 +18,7 @@
     </v-main>
     <FormSection />
     <PolitPop/>
+    <FankBl/>
   </v-app>
 </template>
 
@@ -45,6 +46,7 @@ import OtzMain from '~/components/OtzMain.vue';
 
 
 import PolitPop from '~/components/PolitPop.vue';
+import FankBl from '~/components/FankBl.vue';
 
 
 export default {
@@ -65,7 +67,8 @@ export default {
     NashiPartneru,
     EndFooter,
     OtzMain,
-    PolitPop
+    PolitPop,
+    FankBl
 
   },
 

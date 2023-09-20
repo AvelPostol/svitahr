@@ -1,5 +1,5 @@
 <template>
-   <section class="section n7" id="id3">
+   <section class="section n7 universalslider" id="id3">
     <div class="container">
         <div class="n7-title">
             Как мы работаем?
@@ -67,7 +67,7 @@
               </div>
             </div>
                       <div class="n2-r">
-                          <img src="/images/n2-pre1v.svg" alt="" class="next4i1" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-e88cab0cf5c81e210" aria-disabled="false">
+                          <img src="../assets/images/n2-pre1v.svg" alt="" class="next4i1" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-e88cab0cf5c81e210" aria-disabled="false">
                       </div>
                 </div>
           </div>

@@ -1,15 +1,18 @@
 <template>
+
+  
 <section class="section section-main">
   <div class="container">
     <header>
     <div class="header">
-        <div class="header-bottom">
+        <v-navigation-drawer v-model="popmenu" class="header-bottom menu-act menu-pas" permament>
+          <div  class="header-bottom menu-act menu-pas">
             <div class="header-bottom-ro-t">
                 <div class="header-bottom-ro-t-non"></div>
                 <a href="https://s-vitagroup.ru/" target="_blank" class="logo-link">
                     <img src="../images/img_v2/logo.svg" alt="/" class="logo">
                 </a>
-                <div class="menu-ic ex">
+                <div class="menu-ic ex" @click="closeDialogmenu">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -38,7 +41,7 @@
                         </a>
                     </li>
                     <li>
-                      <a href="#app" class="header-b-link">
+                      <a href="#appy" class="header-b-link">
                           Отзывы
                       </a>
                     </li>
@@ -57,9 +60,9 @@
                             <a href="https://wa.me/+79217985022" class="htc-l1">
                                 <img src="../images/img_v2/whatsapp.svg" alt="" class="htc-im2">
                             </a>
-                            <a href="https://t.me/SVITAHR_bot" class="htc-l2">
+                            <!--<a href="https://t.me/SVITAHR_bot" class="htc-l2">
                                 <img src="../images/img_v2/telegram.svg" alt="" class="htc-im3">
-                            </a>
+                            </a>-->
                         </div>
                     </li>
                 </ul>
@@ -75,14 +78,16 @@
                             </a>
                         </div>
                         <div class="exto1">
-                            <div class="btn-q ex">
+                            <div class="btn-q ex popup-simple">
                                 Отправить заявку
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+          </div>
+           
+        </v-navigation-drawer>
 
         <div class="header-top">
             <div class="header-top-left">
@@ -103,7 +108,7 @@
                                 8 800 222-41-10
                             </div>
                         </a>
-                        <div class="htc-b trige ex">
+                        <div class="htc-b trige ex popup-simple">
                             Заказать обратный звонок
                         </div>
                     </div>
@@ -161,7 +166,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#app" class="header-b-link">
+                    <a href="#appy" class="header-b-link">
                         Отзывы
                     </a>
                 </li>
@@ -183,7 +188,7 @@
             <div class="header-topi-right">
                 <div class="header-topi-row">
                     <div class="header-topi-col">
-                        <a href="tel:tel:+78002224110" class="phone link-t">
+                        <a href="tel:+78002224110" class="phone link-t">
                             <div class="bar-li">8 800 222-41-10</div>
                         </a>
                     </div>
@@ -193,7 +198,7 @@
                 </div>
             </div>
 
-            <div class="menu-ic ex cross-act">
+            <div class="menu-ic ex cross-act" @click="openDialogmenu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -211,11 +216,9 @@
           Подбор топ-персонала с оплатой после трудоустройства
           </div>
           <div class="section-tit nm">
-          Подбор топ-персонала с гарантией
+          Подбор топ-персонала с оплатой после трудоустройства
           </div>
-          <div class="section-sub-tit nm">
-            С оплатой после трудоустройства
-          </div>
+
           <div class="dopic-bl">
             <div class="dopic nm">
               Перезвоним и уточним <br> детали для подготовки <br> персонального <br> предложения
@@ -228,7 +231,7 @@
         <div class="section-b v2">
           <div class="section-b-row">
             <div class="section-btn-row ">
-              <div class="boom exto1"><div class="section-btn section-btn-v1 ex">Подобрать персонал</div></div>
+              <div class="boom exto1"><div class="section-btn section-btn-v1 ex popup-simple">Подобрать персонал</div></div>
 
               <img src="../images/img_v2/nmstr.png" alt="" class="nmstr nm">
               
@@ -271,7 +274,7 @@
                   <img src="../images/img_v2/isi3.svg" alt="">
                 </div>
                 <div class="section-c-text">
-                      Гарантийный период на замену <br> от 1-го месяца до 1-го года
+                      Гарантийный период на замену <br> от 1-го месяца до полугода
                 </div>
               </div>
 
@@ -324,7 +327,7 @@
         <div class="section-b v1">
           <div class="section-b-row">
             <div class="section-btn-row">
-              <div class="boom exto1"><div class="section-btn section-btn-v1 ex">Подобрать персонал</div></div>
+              <div class="boom exto1"><div class="section-btn section-btn-v1 ex popup-simple">Подобрать персонал</div></div>
             <!--  <div class="boom exto2">    <div class="section-btn section-btn-v12 ex">Рассчитать стоимость</div></div> -->
               <div class="slimi">
                 <img src="../images/img_v2/sl-str.svg" alt="" class="slimi-at1">
@@ -336,12 +339,10 @@
           </div>
         </div>
       </div>
-      <div class="section-row section-row-r">
-        <img src="../images/img_v2/f1.svg" alt="" class="section-row-r-img">
+      <div class="section-row section-row-r popup-simple">
+        <img src="../images/img_v2/f1.svg" alt="" class="section-row-r-img popup-simple">
       </div>
     </div>
-
-
 
 
     <div class="section-cont section-cont-v2" id="id1">
@@ -387,7 +388,7 @@
                 </li>
               </ul>
              
-         <div class="section-btn section-btn-v12 ex">Узнать больше</div>
+         <div class="section-btn section-btn-v12 ex popup-simple">Узнать больше</div>
 
 
             </v-expansion-panel-content>
@@ -441,7 +442,7 @@
                 </li>
 
               </ul>
-              <div class="section-btn section-btn-v12 ex">Узнать больше</div>
+              <div class="section-btn section-btn-v12 ex popup-simple">Узнать больше</div>
             </v-expansion-panel-content>
             <v-expansion-panel-header class="section-b">
               <div class="sec-texti">
@@ -485,7 +486,7 @@
                   </div>
                 </li>
               </ul>
-              <div class="section-btn section-btn-v12 ex">Узнать больше</div>
+              <div class="section-btn section-btn-v12 ex popup-simple">Узнать больше</div>
             </v-expansion-panel-content>
             <v-expansion-panel-header class="section-b">
               <div class="sec-texti">
@@ -499,10 +500,12 @@
           <div class="section-col">
             <div class="section-tt">
               <div class="section-t">
-                Подготовка к инспекторской проверке
+                Адаптация и мотивация (материальная и нематериальная)
+
               </div>
               <div class="section-sub">
-                Поможем пройти любые проверки без штрафов и предписаний
+                Снизим текучесть кадров, повысим эффективность работы сотрудников
+
               </div>
             </div>
   
@@ -511,33 +514,29 @@
                 <li>
                   <img src="../images/img_v2/notpr.svg" alt="" class="img-ic-ulli">
                   <div class="sec-text">
-                    Полный аудит кадровых документов
+                    Разработка стандартов по адаптации персонала.
+
                   </div>
                 </li>
   
                 <li>
                   <img src="../images/img_v2/notpr.svg" alt="" class="img-ic-ulli">
                   <div class="sec-text">
-                    Устранение всех недочетов
+                    Сопровождение на этапе адаптации сотрудника
+
                   </div>
                 </li>
   
                 <li>
                   <img src="../images/img_v2/notpr.svg" alt="" class="img-ic-ulli">
                   <div class="sec-text">
-                    Организация обучения и переквалификации сотрудников
-                  </div>
-                </li>
-  
-                <li>
-                  <img src="../images/img_v2/notpr.svg" alt="" class="img-ic-ulli">
-                  <div class="sec-text">
-                    Инструктаж перед визитом инспекции
+                    Разработка системы материальной и нематериальной мотивации
+
                   </div>
                 </li>
 
               </ul>
-              <div class="section-btn section-btn-v12 ex">Узнать больше</div>
+              <div class="section-btn section-btn-v12 ex popup-simple">Узнать больше</div>
             </v-expansion-panel-content>
             <v-expansion-panel-header class="section-b">
               <div class="sec-texti">
@@ -551,10 +550,12 @@
           <div class="section-col">
             <div class="section-tt">
               <div class="section-t">
-                Анализ кадровых документов
+                Организация корпоративных мероприятий под ключ
+
               </div>
               <div class="section-sub">
-                Выявим и устраним нарушения, повысим эффективность документооборота
+                Объединим коллектив и создадим доброжелательную атмосферу
+
               </div>
             </div>
   
@@ -563,25 +564,19 @@
                 <li>
                   <img src="../images/img_v2/notpr.svg" alt="" class="img-ic-ulli">
                   <div class="sec-text">
-                    Проверка и анализ всех кадровых документов
+                    Тимбилдинг
                   </div>
                 </li>
   
                 <li>
                   <img src="../images/img_v2/notpr.svg" alt="" class="img-ic-ulli">
                   <div class="sec-text">
-                    Устранение нарушений
-                  </div>
-                </li>
-  
-                <li>
-                  <img src="../images/img_v2/notpr.svg" alt="" class="img-ic-ulli">
-                  <div class="sec-text">
-                    Разработка рекомендаций по повышению эффективности
+                    Организация любых праздников, Дня рождения компании, Нового года
+
                   </div>
                 </li>
               </ul>
-              <div class="section-btn section-btn-v12 ex">Узнать больше</div>
+              <div class="section-btn section-btn-v12 ex popup-simple">Узнать больше</div>
             </v-expansion-panel-content>
             <v-expansion-panel-header class="section-b">
               <div class="sec-texti">
@@ -591,9 +586,6 @@
             </v-expansion-panel-header>
           </div>
         </v-expansion-panel>
-      
-
-
 
       </v-expansion-panels>
     </div>
@@ -608,9 +600,80 @@
     name: 'MainBlock',
     data() {
       return {
-
+        popmenu: false
       };
+    },
+    methods: {
+      openDialogmenu() {
+        this.popmenu = true;
+      },
+      closeDialogmenu() {
+        this.popmenu = false;
+      },
     }
   };
+
+  /*
+// Добавляем скрипты в head
+export const head = {
+  script: [
+    {
+      innerHTML: `
+        (function(w,d,s,l,i,cid){w[l]=w[l]||[];w.pclick_client_id=cid;w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:''; j.async=true; j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-P23G9N', '91157');
+      `,
+    },
+    {
+      innerHTML: `
+        (function(w,d,n,c){w.CalltouchDataObject=n;w[n]=function(){w[n]["callbacks"].push(arguments)};if(!w[n]["callbacks"]){w[n]["callbacks"]=[]}w[n]["loaded"]=false;if(typeof c!=="object"){c=[c]}w[n]["counters"]=c;for(var i=0;i<c.length;i+=1){p(c[i])}function p(cId){var a=d.getElementsByTagName("script")[0],s=d.createElement("script"),i=function(){a.parentNode.insertBefore(s,a)},m=typeof Array.prototype.find === 'function',n=m?"init-min.js":"init.js";s.type="text/javascript";s.async=true;s.src="https://mod.calltouch.ru/"+n+"?id="+cId;if(w.opera=="[object Opera]"){d.addEventListener("DOMContentLoaded",i,false)}else{i()}}})(window,document,"ct","4l2gq3le");
+      `,
+    },
+    {
+      innerHTML: `
+        (function ab(){ var request = new XMLHttpRequest(); request.open('GET', "https://scripts.botfaqtor.ru/one/38065", false); request.send(); if(request.status == 200) eval(request.responseText); })();
+      `,
+    },
+    {
+      innerHTML: `
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MDNHP73');
+      `,
+    },
+    {
+      innerHTML: `
+        (function(m,e,t,r,i,k,a){m[i]=m[i]function(){(m[i].a=m[i].a[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym(92630779, "init", {
+          clickmap:true,
+          trackLinks:true,
+          accurateTrackBounce:true,
+          webvisor:true
+        });
+      `,
+    },
+    {
+      innerHTML: `
+        (function (d, w) {
+        var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script");
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://qoopler.ru/index.php?ref="+d.referrer+"&page=" + encodeURIComponent(w.location.href);
+        n.parentNode.insertBefore(s, n);
+        })(document, window);
+      `,
+    },
+  ],
+}*/
   </script>
   

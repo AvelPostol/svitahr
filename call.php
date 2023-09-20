@@ -84,7 +84,7 @@ else{
             'UTM_CAMPAIGN' => $ut3,
             'UTM_CONTENT' => $ut4,
             'UTM_TERM' => $ut5,
-            'COMMENTS' => $tar,
+            'UF_CRM_1690960676410' => $tar,
             'SOURCE_ID' => 'WEB',
         ]
     ]
