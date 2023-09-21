@@ -826,6 +826,9 @@ background: linear-gradient(180deg, #FBFCFF 0%, #FFFDFA 100%);
   padding: 15px;
   border-radius: 8px;
 }
+.otz-bl:nth-of-type(3) .otz-cont{
+  max-width: 540px;
+}
 .otz-row{
   display: flex;
   flex-direction: column;
@@ -1762,7 +1765,7 @@ margin: 10px 0px 0px 0px;
   object-fit: cover;
 }
 .otz-top-r{
-  max-height: 360px;
+  max-height: fit-content;
   padding: 20px 10px;
   border-radius: 15px;
   border-radius: 15px;
